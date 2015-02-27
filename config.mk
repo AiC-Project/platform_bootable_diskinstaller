@@ -218,7 +218,13 @@ $(INSTALLED_ANDROID_IMAGE_SYSTEM_TARGET): \
 		inst_system=$(INSTALLED_SYSTEMIMAGE)
 	@echo "Done with bootable android system-disk image -[ $@ ]-"
 
+HW_OPENGL_ENABLED ?= 1
+install_hw_opengl:
+	mkdir -p "$(PRODUCT_OUT)/data/"
+	echo $(HW_OPENGL_ENABLED) > "$(PRODUCT_OUT)/data/.aicVM_hardware_opengl"
+
 $(INSTALLED_ANDROID_IMAGE_DATA_TARGET): \
+					install_hw_opengl \
 					$(INSTALLED_USERDATAIMAGE_TARGET) \
 					$(INSTALLED_CACHEIMAGE_TARGET) \
 					$(grub_bin) \
